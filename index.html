@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Subjects Management</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 { color: #00d4ff; margin-bottom: 30px; }
+
+        /* Subject cards grid eka */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .subject-card {
+            background: #151515;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .subject-card:hover {
+            border-color: #00d4ff;
+            transform: translateY(-5px);
+        }
+
+        .subject-name {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #222;
+            color: #fff;
+            outline: none;
+        }
+
+        .save-btn {
+            margin-top: 40px;
+            padding: 15px 40px;
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .save-btn:hover { background: #00cc6e; }
+    </style>
+</head>
+<body>
+
+    <h1>SCHOOL SUBJECTS - GRADE 11</h1>
+
+    <div class="subjects-grid">
+        <div class="subject-card">
+            <div class="subject-name">1. Mathematics</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">2. Science</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">3. Sinhala</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">4. English</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">5. History</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">6. Religion</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">7. ICT</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">8. Geography</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">9. Art/Music</div>
+            <input type="text" placeholder="Teacher/Student Name">
+            <input type="number" placeholder="Enter Marks">
+        </div>
+    </div>
+
+    <button class="save-btn" onclick="saveData()">SAVE ALL DATA</button>
+
+    <script>
+        function saveData() {
+            alert("All data saved successfully! (In a real project, this would go to a database)");
+        }
+    </script>
+
+</body>
+  </html>
