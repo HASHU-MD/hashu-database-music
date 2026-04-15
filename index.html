@@ -3,144 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Subjects Management</title>
+    <title>Student Marks Dashboard</title>
     <style>
+        :root {
+            --primary: #00d4ff;
+            --bg: #0f0f0f;
+            --card: #1a1a1a;
+            --text: #ffffff;
+        }
+
         body {
-            background-color: #0a0a0a;
-            color: #ffffff;
-            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        h1 { color: #00d4ff; margin-bottom: 30px; }
-
-        /* Subject cards grid eka */
-        .subjects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
+        .container {
+            max-width: 1100px;
+            margin: auto;
         }
 
-        .subject-card {
-            background: #151515;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #333;
+        header {
             text-align: center;
-            transition: 0.3s;
+            padding: 20px;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 30px;
         }
 
-        .subject-card:hover {
-            border-color: #00d4ff;
-            transform: translateY(-5px);
+        .input-section {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
         }
 
-        .subject-name {
-            font-size: 1.2rem;
-            color: #00d4ff;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
+        input, select {
+            padding: 12px;
+            border-radius: 8px;
             border: 1px solid #444;
-            background: #222;
+            background: #252525;
             color: #fff;
             outline: none;
         }
 
-        .save-btn {
-            margin-top: 40px;
-            padding: 15px 40px;
-            background: #00ff88;
+        .add-btn {
+            background: var(--primary);
             color: #000;
-            border: none;
-            border-radius: 8px;
             font-weight: bold;
+            border: none;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover { background: #0099cc; }
+
+        .search-box {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
             font-size: 1rem;
         }
 
-        .save-btn:hover { background: #00cc6e; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th { background: #222; color: var(--primary); }
+
+        .status-pass { color: #00ff88; font-weight: bold; }
+        .status-fail { color: #ff4444; font-weight: bold; }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <h1>SCHOOL SUBJECTS - GRADE 11</h1>
+<div class="container">
+    <header>
+        <h1>STUDENT EXAMINATION PORTAL</h1>
+        <p>Grade 11 - Academic Performance Tracker</p>
+    </header>
 
-    <div class="subjects-grid">
-        <div class="subject-card">
-            <div class="subject-name">1. Mathematics</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
-
-        <div class="subject-card">
-            <div class="subject-name">2. Science</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
-
-        <div class="subject-card">
-            <div class="subject-name">3. Sinhala</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
-
-        <div class="subject-card">
-            <div class="subject-name">4. English</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
-
-        <div class="subject-card">
-            <div class="subject-name">5. History</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
-
-        <div class="subject-card">
-            <div class="subject-name">6. Religion</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
-
-        <div class="subject-card">
-            <div class="subject-name">7. ICT</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
-
-        <div class="subject-card">
-            <div class="subject-name">8. Geography</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
-
-        <div class="subject-card">
-            <div class="subject-name">9. Art/Music</div>
-            <input type="text" placeholder="Teacher/Student Name">
-            <input type="number" placeholder="Enter Marks">
-        </div>
+    <div class="input-section">
+        <input type="text" id="stuName" placeholder="Student Name">
+        <select id="stuSubject">
+            <option value="Mathematics">Mathematics</option>
+            <option value="Science">Science</option>
+            <option value="English">English</option>
+            <option value="ICT">ICT</option>
+            <option value="Sinhala">Sinhala</option>
+        </select>
+        <input type="number" id="stuMarks" placeholder="Marks (0-100)">
+        <button class="add-btn" onclick="addEntry()">ADD RECORD</button>
     </div>
 
-    <button class="save-btn" onclick="saveData()">SAVE ALL DATA</button>
+    <input type="text" id="search" class="search-box" placeholder="Search by student name..." onkeyup="searchTable()">
 
-    <script>
-        function saveData() {
-            alert("All data saved successfully! (In a real project, this would go to a database)");
+    <table id="marksTable">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Result</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            </tbody>
+    </table>
+</div>
+
+<script>
+    // Load existing data from LocalStorage
+    window.onload = displayData;
+
+    function addEntry() {
+        const name = document.getElementById('stuName').value;
+        const subject = document.getElementById('stuSubject').value;
+        const marks = document.getElementById('stuMarks').value;
+
+        if(name === '' || marks === '') {
+            alert("කරුණාකර සියලු විස්තර ඇතුළත් කරන්න!");
+            return;
         }
-    </script>
+
+        const entry = {
+            id: Date.now(),
+            name: name,
+            subject: subject,
+            marks: parseInt(marks),
+            status: marks >= 35 ? 'PASS' : 'FAIL'
+        };
+
+        let students = JSON.parse(localStorage.getItem('studentData')) || [];
+        students.push(entry);
+        localStorage.setItem('studentData', JSON.stringify(students));
+
+        document.getElementById('stuName').value = '';
+        document.getElementById('stuMarks').value = '';
+        displayData();
+    }
+
+    function displayData() {
+        const students = JSON.parse(localStorage.getItem('studentData')) || [];
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = '';
+
+        students.forEach(s => {
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${s.name}</td>
+                    <td>${s.subject}</td>
+                    <td>${s.marks}</td>
+                    <td class="${s.status === 'PASS' ? 'status-pass' : 'status-fail'}">${s.status}</td>
+                    <td><button class="delete-btn" onclick="deleteEntry(${s.id})">Delete</button></td>
+                </tr>
+            `;
+        });
+    }
+
+    function deleteEntry(id) {
+        let students = JSON.parse(localStorage.getItem('studentData'));
+        students = students.filter(s => s.id !== id);
+        localStorage.setItem('studentData', JSON.stringify(students));
+        displayData();
+    }
+
+    function searchTable() {
+        let filter = document.getElementById('search').value.toUpperCase();
+        let tr = document.getElementById('tableBody').getElementsByTagName('tr');
+
+        for (let i = 0; i < tr.length; i++) {
+            let td = tr[i].getElementsByTagName('td')[0];
+            if (td) {
+                let textValue = td.textContent || td.innerText;
+                tr[i].style.display = textValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            }
+        }
+    }
+</script>
 
 </body>
-  </html>
+    </html>
