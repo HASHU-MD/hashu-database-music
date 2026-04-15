@@ -3,212 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Marks Dashboard</title>
+    <title>My School Marks</title>
     <style>
         :root {
-            --primary: #00d4ff;
-            --bg: #0f0f0f;
-            --card: #1a1a1a;
-            --text: #ffffff;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --accent-color: #4a90e2;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a2e;
+            --card-bg: #16213e;
+            --text-color: #e9ecef;
+            --accent-color: #00d2ff;
+            --shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
             margin: 0;
             padding: 20px;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        header {
+        .header {
             text-align: center;
-            padding: 20px;
-            border-bottom: 2px solid var(--primary);
             margin-bottom: 30px;
         }
 
-        .input-section {
-            background: var(--card);
-            padding: 25px;
-            border-radius: 15px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-            border: 1px solid #333;
-        }
-
-        input, select {
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            background: #252525;
-            color: #fff;
-            outline: none;
-        }
-
-        .add-btn {
-            background: var(--primary);
-            color: #000;
-            font-weight: bold;
-            border: none;
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .add-btn:hover { background: #0099cc; }
-
-        .search-box {
-            width: 100%;
-            margin-bottom: 20px;
-            padding: 10px;
-            font-size: 1rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--card);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #333;
-        }
-
-        th { background: #222; color: var(--primary); }
-
-        .status-pass { color: #00ff88; font-weight: bold; }
-        .status-fail { color: #ff4444; font-weight: bold; }
-
-        .delete-btn {
-            background: #ff4444;
+            border-radius: 20px;
+            border: none;
+            background: var(--accent-color);
             color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .subject-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.2s;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .subject-name {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .marks {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            font-weight: 800;
+        }
+
+        .grade {
+            display: block;
+            margin-top: 5px;
+            font-weight: bold;
+            color: #27ae60;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>STUDENT EXAMINATION PORTAL</h1>
-        <p>Grade 11 - Academic Performance Tracker</p>
-    </header>
+    <button class="theme-toggle" onclick="toggleTheme()">Change Theme</button>
 
-    <div class="input-section">
-        <div style="text-align: right; margin-bottom: 10px;">
-    <a href="summary.html" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">VIEW SUMMARY DASHBOARD →</a>
-        </div>
-        <input type="text" id="stuName" placeholder="Student Name">
-        <select id="stuSubject">
-            <option value="Mathematics">Mathematics</option>
-            <option value="Science">Science</option>
-            <option value="English">English</option>
-            <option value="ICT">ICT</option>
-            <option value="Sinhala">Sinhala</option>
-        </select>
-        <input type="number" id="stuMarks" placeholder="Marks (0-100)">
-        <button class="add-btn" onclick="addEntry()">ADD RECORD</button>
+    <div class="header">
+        <h1>වාර පරීක්ෂණ ලකුණු සටහන</h1>
+        <p>මගේ විෂයන් 9යේ දක්ෂතා</p>
     </div>
 
-    <input type="text" id="search" class="search-box" placeholder="Search by student name..." onkeyup="searchTable()">
+    <div class="container">
+        <div class="subject-card">
+            <div class="subject-name">බුද්ධ ධර්මය</div>
+            <div class="marks">85</div>
+            <span class="grade">Grade: A</span>
+        </div>
 
-    <table id="marksTable">
-        <thead>
-            <tr>
-                <th>Student Name</th>
-                <th>Subject</th>
-                <th>Marks</th>
-                <th>Result</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            </tbody>
-    </table>
-</div>
+        <div class="subject-card">
+            <div class="subject-name">සිංහල</div>
+            <div class="marks">78</div>
+            <span class="grade">Grade: A</span>
+        </div>
 
-<script>
-    // Load existing data from LocalStorage
-    window.onload = displayData;
+        <div class="subject-card">
+            <div class="subject-name">ගණිතය</div>
+            <div class="marks">92</div>
+            <span class="grade">Grade: A</span>
+        </div>
 
-    function addEntry() {
-        const name = document.getElementById('stuName').value;
-        const subject = document.getElementById('stuSubject').value;
-        const marks = document.getElementById('stuMarks').value;
+        <div class="subject-card">
+            <div class="subject-name">විද්‍යාව</div>
+            <div class="marks">80</div>
+            <span class="grade">Grade: A</span>
+        </div>
 
-        if(name === '' || marks === '') {
-            alert("කරුණාකර සියලු විස්තර ඇතුළත් කරන්න!");
-            return;
-        }
+        <div class="subject-card">
+            <div class="subject-name">ඉතිහාසය</div>
+            <div class="marks">65</div>
+            <span class="grade">Grade: B</span>
+        </div>
 
-        const entry = {
-            id: Date.now(),
-            name: name,
-            subject: subject,
-            marks: parseInt(marks),
-            status: marks >= 35 ? 'PASS' : 'FAIL'
-        };
+        <div class="subject-card">
+            <div class="subject-name">ඉංග්‍රීසි</div>
+            <div class="marks">72</div>
+            <span class="grade">Grade: B</span>
+        </div>
 
-        let students = JSON.parse(localStorage.getItem('studentData')) || [];
-        students.push(entry);
-        localStorage.setItem('studentData', JSON.stringify(students));
+        <div class="subject-card">
+            <div class="subject-name">භූගෝල විද්‍යාව</div>
+            <div class="marks">88</div>
+            <span class="grade">Grade: A</span>
+        </div>
 
-        document.getElementById('stuName').value = '';
-        document.getElementById('stuMarks').value = '';
-        displayData();
-    }
+        <div class="subject-card">
+            <div class="subject-name">තොරතුරු තාක්ෂණය</div>
+            <div class="marks">95</div>
+            <span class="grade">Grade: A</span>
+        </div>
 
-    function displayData() {
-        const students = JSON.parse(localStorage.getItem('studentData')) || [];
-        const tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = '';
+        <div class="subject-card">
+            <div class="subject-name">කලාව</div>
+            <div class="marks">70</div>
+            <span class="grade">Grade: B</span>
+        </div>
+    </div>
 
-        students.forEach(s => {
-            tableBody.innerHTML += `
-                <tr>
-                    <td>${s.name}</td>
-                    <td>${s.subject}</td>
-                    <td>${s.marks}</td>
-                    <td class="${s.status === 'PASS' ? 'status-pass' : 'status-fail'}">${s.status}</td>
-                    <td><button class="delete-btn" onclick="deleteEntry(${s.id})">Delete</button></td>
-                </tr>
-            `;
-        });
-    }
-
-    function deleteEntry(id) {
-        let students = JSON.parse(localStorage.getItem('studentData'));
-        students = students.filter(s => s.id !== id);
-        localStorage.setItem('studentData', JSON.stringify(students));
-        displayData();
-    }
-
-    function searchTable() {
-        let filter = document.getElementById('search').value.toUpperCase();
-        let tr = document.getElementById('tableBody').getElementsByTagName('tr');
-
-        for (let i = 0; i < tr.length; i++) {
-            let td = tr[i].getElementsByTagName('td')[0];
-            if (td) {
-                let textValue = td.textContent || td.innerText;
-                tr[i].style.display = textValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
             }
         }
-    }
-</script>
-
+    </script>
 </body>
-    </html>
+</html>
