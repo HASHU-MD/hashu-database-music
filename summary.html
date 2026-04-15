@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Performance Summary</title>
+    <style>
+        :root { --primary: #00d4ff; --bg: #0f0f0f; --card: #1a1a1a; --text: #ffffff; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 40px; }
+        .summary-container { max-width: 800px; margin: auto; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+        .stat-card { background: var(--card); padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary); text-align: center; }
+        h1 { border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .back-btn { display: inline-block; margin-top: 20px; color: var(--primary); text-decoration: none; border: 1px solid var(--primary); padding: 10px 20px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="summary-container">
+    <h1>Academic Performance Summary</h1>
+    <div id="stats" class="stats-grid">
+        </div>
+    
+    <a href="index.html" class="back-btn">← Back to Data Entry</a>
+</div>
+
+<script>
+    function loadSummary() {
+        const students = JSON.parse(localStorage.getItem('studentData')) || [];
+        const statsDiv = document.getElementById('stats');
+
+        if (students.length === 0) {
+            statsDiv.innerHTML = "<h3>දත්ත ඇතුළත් කර නොමැත.</h3>";
+            return;
+        }
+
+        const totalStudents = students.length;
+        const totalMarks = students.reduce((sum, s) => sum + s.marks, 0);
+        const average = (totalMarks / totalStudents).toFixed(2);
+        const passCount = students.filter(s => s.status === 'PASS').length;
+        const highestMark = Math.max(...students.map(s => s.marks));
+
+        statsDiv.innerHTML = `
+            <div class="stat-card">
+                <h3>Total Records</h3>
+                <p style="font-size: 2rem;">${totalStudents}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Average Mark</h3>
+                <p style="font-size: 2rem; color: var(--primary);">${average}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Passes</h3>
+                <p style="font-size: 2rem; color: #00ff88;">${passCount}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Highest Mark</h3>
+                <p style="font-size: 2rem;">${highestMark}</p>
+            </div>
+        `;
+    }
+
+    // පිටුව Load වන විට සහ localStorage වෙනස් වන විට data update කරන්න
+    window.onload = loadSummary;
+    window.addEventListener('storage', loadSummary);
+</script>
+
+</body>
+</html>
